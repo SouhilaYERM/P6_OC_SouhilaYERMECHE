@@ -1,6 +1,10 @@
 const express = require('express')
 const router = express.Router()
 const sauceControler = require('../controlers/sauceControler')
+router.get('/toto', (req,res)=>{
+    console.log("Bonjour")
+    res.send('hello world')
+})
 
 router.post("/", sauceControler.createSauce)
 router.post("/:id/like", sauceControler.createSauceLike)
