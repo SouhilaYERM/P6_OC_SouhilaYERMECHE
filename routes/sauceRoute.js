@@ -1,16 +1,19 @@
+//Imports
 const express = require('express')
-const router = express.Router()
 const sauceControler = require('../controlers/sauceControler')
-router.get('/toto', (req,res)=>{
-    console.log("Bonjour")
-    res.send('hello world')
-})
+const multer = require('../middleware/multer-config')
+const auth = require('../middleware/auth')
 
-router.post("/", sauceControler.createSauce)
-router.post("/:id/like", sauceControler.createSauceLike)
-router.get("/", sauceControler.getAllSauces)
-router.get("/:id", sauceControler.getOneSauce)
-router.put("/:id", sauceControler.modifyOneSauce)
-router.delete('/:id', sauceControler.deleteOneSauce);
+//Création du router 
+const router = express.Router()
 
+//Routes sauces 
+router.post("/", auth, multer, sauceControler.createSauce)
+router.post("/:id/like",auth, sauceControler.createSauceLike)
+router.get("/",auth, sauceControler.getAllSauces)
+router.get("/:id",auth, sauceControler.getOneSauce)
+router.put("/:id",auth, multer, sauceControler.modifyOneSauce)
+router.delete('/:id',auth, sauceControler.deleteOneSauce);
+
+//Exports
 module.exports = router;
